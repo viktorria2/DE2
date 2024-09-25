@@ -17,15 +17,11 @@
 #include <stdint.h>   // Standard C integer library
 
 uint8_t factorial(uint8_t value)
-
 {
     uint32_t result = 1;
- 
-    
     while(value> 1 ) {
        result *= value;
-       value--;
-        
+       value--;    
     }
     
     return result;
