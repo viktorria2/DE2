@@ -36,3 +36,49 @@ int main(void)        // Main function with no input parameters
     
     return 0;         // Main function returns 0 indicating successful execution
 }                     // End of function body
+
+
+
+3. #include <stdio.h>    // Standard C input/output library
+#include <stdint.h>   // Standard C integer library
+
+uint8_t factorial(uint8_t value)
+
+{
+    uint32_t result = 1;
+ 
+    
+    while(value> 1 ) {
+       result *= value;
+       value--;
+        
+    }
+    
+    return result;
+}
+
+void triangle(uint8_t value)
+ {
+     for (uint8_t i = 1; i < value; i++) 
+     {
+        for (uint8_t j = 0; j < i; j++) 
+        {
+            printf("*");
+        }
+        
+        printf("\n");
+     }
+}
+
+
+
+
+int main(void)        // Main function with no input parameters
+{                     // Beginning of function body
+    int8_t  a = 200;  // Definition of two local variables
+    uint8_t b = 6;  // Unsigned 8-bit integer variable
+
+    triangle(b);
+    
+    return 0;         // Main function returns 0 indicating successful execution
+}                     // End of function body
