@@ -10,3 +10,33 @@
    | `void`     | -- | -- | Depending on the context, it means *no type*, *no value* or *no parameters* |
 
 <a name="part1"></a>
+
+
+
+2. #include <stdio.h>    // Standard C input/output library
+#include <stdint.h>   // Standard C integer library
+
+uint8_t factorial(uint8_t value)
+
+{
+    uint32_t result = 1;
+ 
+    
+    while(value> 1 ) {
+       result *= value;
+       value--;
+        
+    }
+    
+    return result;
+}
+
+int main(void)        // Main function with no input parameters
+{                     // Beginning of function body
+    int8_t  a = 200;  // Definition of two local variables
+    uint8_t b = 5;  // Unsigned 8-bit integer variable
+
+    printf("Factorial b = %d", factorial(b));
+    
+    return 0;         // Main function returns 0 indicating successful execution
+}                     // End of function body
