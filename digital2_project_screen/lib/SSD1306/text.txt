@@ -6,3 +6,4 @@ stop - pin 3
 
 !!!
 U8g2 by olikraus
+SCL a SDA pro zapojení displaye
