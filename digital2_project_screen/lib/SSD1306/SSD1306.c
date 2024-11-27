@@ -1,6 +1,6 @@
 #include "SSD1306.h"
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 unsigned long startTime = 0;  
 unsigned long mesuaredTime = 0;  //how much is from the button 'start' was pressed
@@ -12,19 +12,15 @@ char notes[MAX_NOTES][20];
 int noteIndex = 0;  
 
 // Display initialization
-void initDisplay() {
-  if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
-    Serial.println(F("SSD1306 can't be found!"));
-    for(;;);  // blocking
-  }
-  display.display();
-  delay(2000);  //
+  u8g2.begin();  
+  u8g2.clearBuffer();  
+  u8g2.setFont(u8g2_font_ncenB08_tr); 
 }
 
 // Display clear
-void clearLine(uint8_t line) {
-  display.fillRect(0, line * 10, SCREEN_WIDTH, 10, SSD1306_BLACK);
-}
+//void clearLine(uint8_t line) {
+ // display.fillRect(0, line * 10, SCREEN_WIDTH, 10, SSD1306_BLACK);
+//}
 
 // Add note on the display
 void addNoteToDisplay(const char* note) {
@@ -38,16 +34,13 @@ void addNoteToDisplay(const char* note) {
   strcpy(notes[noteIndex], note);
   
   // Display notes
-  display.clearDisplay();  
+u8g2.clearBuffer();  
   for (int i = 0; i < MAX_NOTES; i++) {
     if (strlen(notes[i]) > 0) {
-      display.setTextSize(2); 
-      display.setTextColor(SSD1306_BLUE);  
-      display.setCursor(0, i * 10);  
-      display.print(notes[i]); 
+      u8g2.drawStr(0, (i + 1) * 10, notes[i]);  
     }
   }
-  display.display();  // display reload
+  u8g2.sendBuffer();  // send to display
 }
 
 // Buttons
@@ -67,12 +60,10 @@ unsigned long getmeasuredTime() {
 //  Time since start button pressed on display is shown
 void displaymeasuredTime(unsigned long measuredTime) {
   // Position of the time parameter
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_SILVER);
-  display.setCursor(SCREEN_WIDTH - 60, SCREEN_HEIGHT - 10);  
-  display.print(measuredTime / 1000); 
-  display.print(" sec");
-  display.display();
+  u8g2.setCursor(SCREEN_WIDTH - 60, SCREEN_HEIGHT - 10);  
+  u8g2.print(measuredTime / 1000);  
+  u8g2.print(" sec");
+  u8g2.sendBuffer();  
 }
 
 // The main loop
